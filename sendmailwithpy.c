@@ -3,11 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-static void resetGetLine(char *inputBuffer, size_t *lenvar) {
-  inputBuffer = NULL;
-  lenvar = 0;
-}
-
 static void dropNewLine(char *getLineBuffer, ssize_t read){
   getLineBuffer[read - 1] = '\0';
 }
@@ -71,7 +66,8 @@ int main(void) {
                           command, from, to, cc, subject, message,
                           smtplogin, smtppassword, smtphostport);
      resetGetLine(to, &len);
-     //printf("%s", sendmessage);
+     to = NULL;
+     len = 0;
      system(sendmessage);
    }
 
