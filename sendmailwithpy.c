@@ -67,22 +67,17 @@ int main(void) {
                          command, from, to, cc, subject, message,
                          smtplogin, smtppassword, smtphostport);
 
-    printf("%s", sendmessage);
-    //system(sendmessage);
+    system(sendmessage);
 
     free(to);
-    to = NULL;
     len = 0;
     free(sendmessage);
-    sendmessage = NULL;
-
   }
 
   fclose(contactsFile);
+  free(to);
   free(subject);
   free(message);
-  contactsFile = NULL;
-  subject = message = NULL;
 
   return EXIT_SUCCESS;
 }
