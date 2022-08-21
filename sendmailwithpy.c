@@ -15,7 +15,7 @@ static void dropNewLine(char *getLineBuffer, ssize_t read){
 int main(void) {
   FILE *contactsFile;
 
-  char *from           = "send_to@domain",
+  char *from           = "send_from@domain",
        *to,
        *cc             = "",
        *subject,
