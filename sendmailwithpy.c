@@ -15,13 +15,13 @@ static void dropNewLine(char *getLineBuffer, ssize_t read){
 int main(void) {
   FILE *contactsFile;
 
-  char *from           = "user@domain",
+  char *from           = "send_to@domain",
        *to,
        *cc             = "",
        *subject,
        *message,
-       *smtplogin      = "smtp login",
-       *smtppassword   = "smtp password in plaintext",
+       *smtplogin      = "smtp user login",
+       *smtppassword   = "smtp user password plaintext",
        *smtphostport   = "smtp server:port",
        *command        = "python3 sendmail.py sendemail",
        *sendmessage;
@@ -71,11 +71,14 @@ int main(void) {
                           command, from, to, cc, subject, message,
                           smtplogin, smtppassword, smtphostport);
      resetGetLine(to, &len);
-     subject = NULL;
-     message = NULL;
-     //printf("%s", sendmessage); <<-- Using this to test string uncomment and comment line 76 is you want to test without sending
+     //printf("%s", sendmessage);
      system(sendmessage);
    }
+
+   free(to);
+   free(subject);
+   free(message);
+   free(sendmessage);
 
   return 0;
 }
