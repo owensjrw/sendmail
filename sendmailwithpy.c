@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Gets rid of new line charater written by getline()
 static void dropNewLine(char *getLineBuffer, ssize_t read){
   getLineBuffer[read - 1] = '\0';
 }
@@ -11,38 +10,36 @@ static void dropNewLine(char *getLineBuffer, ssize_t read){
 int main(void) {
   FILE *contactsFile;
 
-  //Set from, cc, smtplogin, smtppassword, and smptphostport variable prior to compiling
-  char *from           = "send_from@domain",
-       *to,
-       *cc             = "",
-       *subject,
-       *message,
-       *smtplogin      = "smtp user login",
-       *smtppassword   = "smtp user password plaintext",
-       *smtphostport   = "smtp server:port",
+  char *from           = "from",
+       *to             = NULL,
+       *cc             = "cc",
+       *subject        = NULL,
+       *message        = NULL,
+       *smtplogin      = "smtplogin",
+       *smtppassword   = "smtppassword_plaintext",
+       *smtphostport   = "server:port",
        *command        = "python3 sendmail.py sendemail",
-       *sendmessage;
+       *sendmessage    = NULL;
 
   size_t len = 0;
-  ssize_t read;
+  ssize_t read = 0;
 
-  //Open contacts list
   if ((contactsFile = fopen("contacts.txt", "r")) == NULL) {
     fprintf(stderr, "Error - Unable to open contacts.txt");
     exit(-1);
   }
 
-  //Gets subject and message will be the same for all recipents in contact list
   puts("Please enter the Subject:");
   if ((read = getline(&subject, &len, stdin)) != -1) {
-    dropNewLine(subject, read);
-    len = 0;
+      dropNewLine(subject, read);
+      len = 0;
   } else {
-    fprintf(stderr, "Error - Unable to write Subject.");
-    exit(-2);
+      fprintf(stderr, "Error - Unable to write Subject.");
+      exit(-2);
   }
 
   puts("Please enter the message:");
+
   if ((read = getline(&message, &len, stdin)) != -1) {
     dropNewLine(message, read);
     len = 0;
@@ -51,7 +48,6 @@ int main(void) {
     exit(-3);
   }
 
-  //Writes header and message to be sent to SMS gateway via SMTP for each contact
   while ((read = getline(&to, &len, contactsFile)) != -1) {
     dropNewLine(to, read);
     size_t msglen = strlen(from)           +
@@ -64,25 +60,25 @@ int main(void) {
                     strlen(smtphostport)   +
                     strlen(command);
 
-     sendmessage = malloc(msglen + 26);
+    sendmessage = malloc(msglen + 26);
 
-     sprintf(sendmessage, "%s \"%s\" \"%s\" \"%s\" \"%s\" "
-                          "\"%s\" \"%s\" \"%s\" \"%s\"\n",
-                          command, from, to, cc, subject, message,
-                          smtplogin, smtppassword, smtphostport);
-     resetGetLine(to, &len);
-     to = NULL;
-     len = 0;
-     //Runs Python function sendemail() in sendmail.py
-     system(sendmessage);
-   }
+    sprintf(sendmessage, "%s \"%s\" \"%s\" \"%s\" \"%s\" "
+                         "\"%s\" \"%s\" \"%s\" \"%s\"\n",
+                         command, from, to, cc, subject, message,
+                         smtplogin, smtppassword, smtphostport);
+    to = NULL;
+    len = 0;
+    printf("%s", sendmessage);
+    //system(sendmessage);
+    free(sendmessage);
+  }
 
-   //Clean heap memory
-   fclose(contactsFile);
-   free(to);
-   free(subject);
-   free(message);
-   free(sendmessage);
+  fclose(contactsFile);
+  free(to);
+  free(subject);
+  free(message);
+  contactsFile = NULL;
+  to = subject = message = NULL;
 
-  EXIT_SUCCESS; //Not required but nice to have.
+  EXIT_SUCCESS;
 }
