@@ -15,6 +15,8 @@ gcc -g -Wall sendemailwithpy.c -o sendemail
 
 this will create a "shared library" executable file which you can run with ./sendemail
 
+I have also added a makefile for a simple make command however it will create a "shared library" named sendmailwithpy
+
 All three files must be in the same folder.
 
 I have tested this only on:\
