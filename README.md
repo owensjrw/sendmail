@@ -6,7 +6,7 @@ How it works.
 
 1. Need a list of contacts formated in one of two ways
   a. 10digitnumber@sms.gateway
-  b. contact name <10digitnumber@sms.gateway>
+  b. contact name \<10digitnumber@sms.gateway\>
 there should be no return after the last contact.
 
 compile the sendemailwithpy.c using your c compiler and your favorite switches or 
