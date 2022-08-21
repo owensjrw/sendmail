@@ -50,28 +50,17 @@ int main(void) {
 
   while ((read = getline(&to, &len, contactsFile)) != -1) {
     dropNewLine(to, read);
-    size_t msglen = strlen(from)           +
-                strlen(to)             +
-                strlen(cc)             +
-                strlen(subject)        +
-                strlen(message)        +
-                strlen(smtplogin)      +
-                strlen(smtppassword)   +
-                strlen(smtphostport)   +
-                strlen(command);
-
-    sendmessage = malloc(msglen + 26);
-
-    sprintf(sendmessage, "%s \"%s\" \"%s\" \"%s\" \"%s\" "
-                         "\"%s\" \"%s\" \"%s\" \"%s\"\n",
-                         command, from, to, cc, subject, message,
-                         smtplogin, smtppassword, smtphostport);
+    asprintf(&sendmessage, "%s \"%s\" \"%s\" \"%s\" \"%s\" "
+                           "\"%s\" \"%s\" \"%s\" \"%s\"\n",
+                           command, from, to, cc, subject, message,
+                           smtplogin, smtppassword, smtphostport);
 
     system(sendmessage);
 
     free(to);
     len = 0;
     free(sendmessage);
+
   }
 
   fclose(contactsFile);
