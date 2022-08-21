@@ -78,6 +78,7 @@ int main(void) {
    }
 
    //Clean heap memory
+   fclose(contactsFile);
    free(to);
    free(subject);
    free(message);
