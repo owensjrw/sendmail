@@ -28,3 +28,19 @@ Linux 5.4.0-124-generic \
       #140-Ubuntu\
       x86_64\
       GNU/Linux\
+
+SMS Gateways:
+|Mobile carrier 	 |SMS gateway domain 	     |MMS gateway domain       |
+|:-----------------|:------------------------|:------------------------|
+|Alltel 	         |sms.alltelwireless.com 	 |mms.alltelwireless.com   |
+|AT&T 	           |txt.att.net 	           |mms.att.net              |
+|Boost Mobile  	   |sms.myboostmobile.com 	 |myboostmobile.com        |
+|Cricket Wireless  |mms.cricketwireless.com  |mms.cricketwireless.com  |
+|Google Fi 		     |                         |msg.fi.google.com        |
+|MetroPCS 	       |mymetropcs.com 	         |mymetropcs.com           |
+|Republic Wireless |text.republicwireless.com|                         |	
+|Sprint 	         |messaging.sprintpcs.com  |pm.sprint.com            |
+|T-Mobile 	       |tmomail.net 	           |tmomail.net              |
+|U.S. Cellular 	   |email.uscc.net 	         |mms.uscc.net             |
+|Verizon Wireless	 |vtext.com 	             |vzwpix.com               |
+|Virgin Mobile     |vmobl.com                |vmpix.com                |
