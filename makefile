@@ -31,7 +31,7 @@ sendmailwithpy: $(OBJ)
 	@echo Compiling $@
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-memcheck: *.c
+memcheck: $(wildcard *.c)
 	@echo Compiling with ASANFLAGS $@
 	$(CC) $(CFLAGS) $(ASANFLAGS) -o $@ $<
 
