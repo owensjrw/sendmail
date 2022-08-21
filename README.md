@@ -21,7 +21,7 @@ I have tested this only on:\
 description: Desktop Computer\
     product: Inspiron 3847 (0622)\
      vendor: Dell Inc.\
-      width: 64 bits\
+      width: 64 bits
 
 Running:\
 Linux 5.4.0-124-generic \
