@@ -83,5 +83,5 @@ int main(void) {
    free(message);
    free(sendmessage);
 
-  EXIT_SUCESS; //Not required but nice to have.
+  EXIT_SUCCESS; //Not required but nice to have.
 }
