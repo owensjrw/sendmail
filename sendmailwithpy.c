@@ -71,9 +71,9 @@ int main(void) {
                           command, from, to, cc, subject, message,
                           smtplogin, smtppassword, smtphostport);
      resetGetLine(to, &len);
-     resetGetLine(subject, &len);
-     resetGetLine(message, &len);
-     //printf("%s", sendmessage);
+     subject = NULL;
+     message = NULL;
+     //printf("%s", sendmessage); <<-- Using this to test string uncomment and comment line 76 is you want to test without sending
      system(sendmessage);
    }
 
