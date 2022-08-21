@@ -13,6 +13,7 @@ Subject: {subject}
 {message}"""
 
     server = smtplib.SMTP(smtpserver)
+    server.ehlo()
     server.starttls()
     server.login(login,password)
     problems = server.sendmail(from_addr, to_addr_list, message)
