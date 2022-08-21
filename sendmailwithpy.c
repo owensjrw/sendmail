@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+//Gets rid of new line charater written by getline()
 static void dropNewLine(char *getLineBuffer, ssize_t read){
   getLineBuffer[read - 1] = '\0';
 }
@@ -10,6 +11,7 @@ static void dropNewLine(char *getLineBuffer, ssize_t read){
 int main(void) {
   FILE *contactsFile;
 
+  //Set from, cc, smtplogin, smtppassword, and smptphostport variable prior to compiling
   char *from           = "send_from@domain",
        *to,
        *cc             = "",
@@ -24,11 +26,13 @@ int main(void) {
   size_t len = 0;
   ssize_t read;
 
+  //Open contacts list
   if ((contactsFile = fopen("contacts.txt", "r")) == NULL) {
     fprintf(stderr, "Error - Unable to open contacts.txt");
     exit(-1);
   }
 
+  //Gets subject and message will be the same for all recipents in contact list
   puts("Please enter the Subject:");
   if ((read = getline(&subject, &len, stdin)) != -1) {
     dropNewLine(subject, read);
@@ -47,6 +51,7 @@ int main(void) {
     exit(-3);
   }
 
+  //Writes header and message to be sent to SMS gateway via SMTP for each contact
   while ((read = getline(&to, &len, contactsFile)) != -1) {
     dropNewLine(to, read);
     size_t msglen = strlen(from)           +
@@ -68,13 +73,15 @@ int main(void) {
      resetGetLine(to, &len);
      to = NULL;
      len = 0;
+     //Runs Python function sendemail() in sendmail.py
      system(sendmessage);
    }
 
+   //Clean heap memory
    free(to);
    free(subject);
    free(message);
    free(sendmessage);
 
-  return 0;
+  EXIT_SUCESS; //Not required but nice to have.
 }
